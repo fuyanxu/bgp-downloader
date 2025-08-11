@@ -4,11 +4,10 @@ A tool to download BGP data from RIPE and RouteViews repositories.
 
 ## Features
 
-- Download BGP data from RIPE repository and RouteViews (planned)
-- Support for RouteViews (planned)
+- Download BGP data from RIPE repository and RouteViews
 - Customizable collector, data type, and date range
 - Custom output directory
-- Organizes downloaded files in subdirectories by collector, date, and type (./collector/yyyy.mm/type)## Features
+- Organizes downloaded files in subdirectories by collector, date, and type (./source/collector/yyyy.mm/type)## Features
 
 - Parses HTML pages to extract file links for download
 - Filters files by specific date rather than returning all files for a month
@@ -100,5 +99,7 @@ MIT
 ## Author
 
 *Yanxu Fu* <fuyanxu@bupt.edu.com>
+
 Created on 2025-08-02
+
 Finish the code with help from Qwen3 Coder.
