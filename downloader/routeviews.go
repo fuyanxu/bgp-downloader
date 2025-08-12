@@ -87,8 +87,8 @@ func downloadDailyRVData(collector, dataType string, date time.Time, outputDir s
 
 		// Create subdirectory structure: ./collector/yyyy.mm/type
 		var subDir string
-		if strings.Contains(file, "bview") {
-			subDir = filepath.Join(outputDir, "routeviews", "bview", collector, yyyyMM)
+		if strings.Contains(file, "rib") {
+			subDir = filepath.Join(outputDir, "routeviews", "ribs", collector, yyyyMM)
 		} else if strings.Contains(file, "updates") {
 			subDir = filepath.Join(outputDir, "routeviews", "updates", collector, yyyyMM)
 		} else {
