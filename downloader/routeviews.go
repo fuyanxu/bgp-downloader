@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	routeViewsBaseURL = "http://10.3.242.4:12345/download?url=https://archive.routeviews.org/"
+	routeViewsBaseURL = "https://archive.routeviews.org/"
 )
 
 var routeviewsMap = map[string]string{
