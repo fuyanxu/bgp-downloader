@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	baseURL = "http://10.3.242.4:12345/download?url=https://data.ris.ripe.net"
+	baseURL = "https://data.ris.ripe.net"
 )
 
 // fileCache stores the file list for a specific monthURL to avoid duplicate requests
