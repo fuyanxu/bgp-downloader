@@ -55,23 +55,12 @@ func downloadDailyRVData(collector, dataType string, date time.Time, outputDir s
 		return fmt.Errorf("failed to get file list for %s: %v", date.Format("2006-01-02"), err)
 	}
 
-	// Get the list of files for the day
-	// files, err := GetRouteViewsDailyFileList(dayURL, date)
-	// if err != nil {
-	// 	return fmt.Errorf("failed to get file list for %s: %v", date.Format("2006-01-02"), err)
-	// }
-
-	// Filter files based on data type
 	var filteredFiles []string
 	switch dataType {
 	case "rib":
-		for _, file := range rib_files {
-			filteredFiles = append(filteredFiles, file)
-		}
+		filteredFiles = append(filteredFiles, rib_files...)
 	case "updates":
-		for _, file := range updates_files {
-			filteredFiles = append(filteredFiles, file)
-		}
+		filteredFiles = append(filteredFiles, updates_files...)
 	case "all":
 		filteredFiles = append(rib_files, updates_files...)
 	default:

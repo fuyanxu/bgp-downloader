@@ -167,22 +167,50 @@ func downloadFile(url, outputPath string) error {
 	}
 	defer out.Close()
 
-	// Get the data
-	resp, err := http.Get(url)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
+	//Retry parameters
+	const maxRetries = 5
+	retryDelay := 1 * time.Second
 
-	// Check server response
-	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("bad status: %s", resp.Status)
-	}
+	// Retry loop
+	for i:=0; i <maxRetries;i++ {
+		resp, err := http.Get(url)
+		if err != nil {
+			if i == maxRetries {
+				return err // Return the error if we've exhausted retries
+			}
+			fmt.Printf("Download attempt %d failed: %v. Retrying in %v...\n", i+1, err, retryDelay)
+			time.Sleep(retryDelay)
+			retryDelay *= 2 // Exponential backoff
+			continue
+		}
+		defer resp.Body.Close()
 
-	// Writer the body to file
-	_, err = io.Copy(out, resp.Body)
-	if err != nil {
-		return err
+		// Check server response
+		if resp.StatusCode != http.StatusOK {
+			if i == maxRetries {
+				return fmt.Errorf("bad status: %s", resp.Status)
+			}
+			fmt.Printf("Download attempt %d failed with status %s. Retrying in %v...\n", i+1, resp.Status, retryDelay)
+			time.Sleep(retryDelay)
+			retryDelay *= 2 // Exponential backoff
+			continue
+		}
+
+		// Write the body to file
+		_, err = io.Copy(out, resp.Body)
+		if err != nil {
+			if i == maxRetries {
+				return err
+			}
+			fmt.Printf("Failed to write to file on attempt %d: %v. Retrying in %v...\n", i+1, err, retryDelay)
+			time.Sleep(retryDelay)
+			retryDelay *= 2 // Exponential backoff
+			continue
+		}
+
+		// Success
+		fmt.Printf("Successfully downloaded %s\n", outputPath)
+		return nil
 	}
 
 	return nil
