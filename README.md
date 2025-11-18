@@ -12,7 +12,7 @@ A tool to download BGP data from RIPE and RouteViews repositories.
 - Parses HTML pages to extract file links for download
 - Filters files by specific date rather than returning all files for a month
 - Implements caching mechanism to avoid redundant HTTP requests for the same month
-- Supports parallel downloads with a default concurrency limit of 10 goroutines for improved performance Installation
+- Supports parallel downloads with a default concurrency limit of 10 goroutines for improved performance
 
 On Windows:
 ```bash
@@ -98,7 +98,7 @@ MIT
 
 ## Author
 
-*Yanxu Fu* <fuyanxu@bupt.edu.com>
+*Yanxu Fu* <fuyanxu@bupt.edu.cn>
 
 Created on 2025-08-02
 
